@@ -14,6 +14,11 @@ wget --post-data "username=$username&password=$password" 'https://download.is.tu
 unzip FLAME2020.zip -d data/FLAME2020/
 rm -rf FLAME2020.zip
 
+mkdir -p data/FLAME2023/
+wget --post-data "username=$username&password=$password" 'https://download.is.tue.mpg.de/download.php?domain=flame&sfile=FLAME2023.zip&resume=1' -O './FLAME2023.zip' --no-check-certificate --continue
+unzip FLAME2023.zip -d data/FLAME2023/
+rm -rf FLAME2023.zip
+
 # Install gdown if not installed
 if ! command -v gdown &> /dev/null; then
     echo "Installing gdown..."
@@ -36,8 +41,5 @@ if [ ! -d ~/.insightface/models/buffalo_l ]; then
   gdown --id 1navJMy0DTr1_DHjLWu1i48owCPvXWfYc -O ~/.insightface/models/buffalo_l.zip
   unzip ~/.insightface/models/buffalo_l.zip -d ~/.insightface/models/buffalo_l
 fi
-
-echo -e "\nInstalling conda env..."
-conda env create -f environment.yml
 
 echo -e "\nInstallation has finished!"

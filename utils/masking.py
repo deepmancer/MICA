@@ -21,6 +21,8 @@ import torch
 import torch.nn as nn
 from trimesh import Trimesh
 
+from pixel3dmm import env_paths
+
 
 def to_tensor(array, dtype=torch.float32):
     if 'torch.tensor' not in str(type(array)):
@@ -42,12 +44,11 @@ class Struct(object):
 class Masking(nn.Module):
     def __init__(self, config):
         super(Masking, self).__init__()
-        ROOT_DIR = os.path.join(os.path.dirname(os.path.abspath(__file__)), '..')
-        with open(f'{ROOT_DIR}/data/FLAME2020/FLAME_masks/FLAME_masks.pkl', 'rb') as f:
+        with open(f'{env_paths.FLAME_2020_PATH}/FLAME_masks/FLAME_masks.pkl', 'rb') as f:
             ss = pickle.load(f, encoding='latin1')
             self.masks = Struct(**ss)
 
-        with open(f'{ROOT_DIR}/data/FLAME2020/generic_model.pkl', 'rb') as f:
+        with open(env_paths.FLAME_GENERIC_MODEL, 'rb') as f:
             ss = pickle.load(f, encoding='latin1')
             flame_model = Struct(**ss)
 
